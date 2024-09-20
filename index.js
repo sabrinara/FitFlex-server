@@ -3,6 +3,7 @@ import { config } from 'dotenv';
 import cors from 'cors';
 import connectDB from './config/db.js';
 import Product from './models/products.js';
+import Order from './models/orders.js';
 
 // Load environment variables
 config();
@@ -132,6 +133,46 @@ app.get('/api/products/category/:category', async (req, res) => {
     res.status(500).json({ message: 'Server error', error: err.message });
   }
 });
+
+
+// Orders routes
+
+// CREATE: Add an order (POST)
+app.post('/api/orders', async (req, res) => {
+  try {
+    const { name, email, address, phoneNumeber, products, total } = req.body;
+    const order = new Order({ name, email, address, phoneNumeber, products, total });
+    await order.save();
+    res.status(201).json(order);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+});
+
+// READ: Get all orders (GET)
+app.get('/api/orders', async (req, res) => {
+  try {
+    const orders = await Order.find();
+    res.status(200).json(orders);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+});
+
+// READ: Get an order by ID (GET)
+app.get('/api/orders/:id', async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+    res.status(200).json(order);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+});
+
+
 
 // Start server
 const PORT = process.env.PORT || 5000;
