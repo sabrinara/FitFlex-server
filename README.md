@@ -29,7 +29,7 @@ This is a simple Product Management API built with Node.js, Express.js, and Mong
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/yourusername/product-management-api.git
+    git clone https://github.com/sabrinara/FitFlex-server.git
     ```
 
 2. Change directory into the project:
@@ -81,15 +81,21 @@ This is a simple Product Management API built with Node.js, Express.js, and Mong
    - **Response Example:**
 
      ```json
-     {
-       "_id": "60c72b2f9b1e8a1b0c8fbcf1",
-       "name": "Organic Tomato",
-       "category": "Vegetables",
-       "price": 2.99,
-       "description": "Fresh organic tomatoes, perfect for salads and cooking.",
-       "createdAt": "2024-08-31T10:00:00.000Z",
-       "__v": 0
-     }
+       {
+        "_id": "66efbf2b0386dc7577fe3f42",
+        "name": "Adjustable Dumbbell Set",
+        "image": "https://images.unsplash.com/photo-1562771242-a02d9090c90c?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "category": [
+            "Fitness Equipment",
+            "Strength Training",
+            "Dumbbells"
+        ],
+        "price": 199.99,
+        "quantity": 15,
+        "description": "This adjustable dumbbell set includes multiple weights and allows for easy adjustment, perfect for both beginner and advanced users. The ergonomic design ensures comfort and safety during intense workouts.",
+        "createdAt": "2024-09-22T06:54:35.416Z",
+        "__v": 0
+       }
      ```
 
 ### 2. **Get All Products**
@@ -108,7 +114,7 @@ This is a simple Product Management API built with Node.js, Express.js, and Mong
    - **Example Request:**
 
      ```plaintext
-     GET /api/products?search=Organic&categories=Vegetables,Electronics&minPrice=1&maxPrice=100&sortBy=price&sortOrder=asc
+     GET /api/products?search=Dumbbell&categories=Fitness&minPrice=1&maxPrice=100&sortBy=price&sortOrder=asc
      ```
 
    - **Response Example:**
@@ -129,7 +135,7 @@ This is a simple Product Management API built with Node.js, Express.js, and Mong
         "description": "This adjustable dumbbell set includes multiple weights and allows for easy adjustment, perfect for both beginner and advanced users. The ergonomic design ensures comfort and safety during intense workouts.",
         "createdAt": "2024-09-22T06:54:35.416Z",
         "__v": 0
-    }
+     }
      ]
      ```
 
@@ -140,14 +146,26 @@ This is a simple Product Management API built with Node.js, Express.js, and Mong
    - **Example Request:**
 
      ```plaintext
-     GET /api/products/60c72b2f9b1e8a1b0c8fbcf1
+     GET /api/products/66efbf2b0386dc7577fe3f42
      ```
 
    - **Response Example:**
 
      ```json
-     {
-      
+      {
+        "_id": "66efbf2b0386dc7577fe3f42",
+        "name": "Adjustable Dumbbell Set",
+        "image": "https://images.unsplash.com/photo-1562771242-a02d9090c90c?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "category": [
+            "Fitness Equipment",
+            "Strength Training",
+            "Dumbbells"
+        ],
+        "price": 199.99,
+        "quantity": 15,
+        "description": "This adjustable dumbbell set includes multiple weights and allows for easy adjustment, perfect for both beginner and advanced users. The ergonomic design ensures comfort and safety during intense workouts.",
+        "createdAt": "2024-09-22T06:54:35.416Z",
+        "__v": 0
      }
      ```
 
@@ -213,7 +231,7 @@ This is a simple Product Management API built with Node.js, Express.js, and Mong
    - **Example Request:**
 
      ```plaintext
-     GET /api/products/category/Vegetables
+     GET /api/products/category/Fitness
      ```
 
    - **Response Example:**
@@ -234,8 +252,8 @@ This is a simple Product Management API built with Node.js, Express.js, and Mong
         "description": "A compact and foldable treadmill, perfect for home workouts. Features adjustable speed settings, a built-in heart rate monitor, and an LCD display for tracking your progress.",
         "createdAt": "2024-09-22T06:38:39.423Z",
         "__v": 0
-    },
-    {
+        },
+        {
         "_id": "66efbf2b0386dc7577fe3f42",
         "name": "Adjustable Dumbbell Set",
         "image": "https://images.unsplash.com/photo-1562771242-a02d9090c90c?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -249,7 +267,7 @@ This is a simple Product Management API built with Node.js, Express.js, and Mong
         "description": "This adjustable dumbbell set includes multiple weights and allows for easy adjustment, perfect for both beginner and advanced users. The ergonomic design ensures comfort and safety during intense workouts.",
         "createdAt": "2024-09-22T06:54:35.416Z",
         "__v": 0
-    }
+        }
      ]
      ```
 
