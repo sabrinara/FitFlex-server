@@ -317,7 +317,7 @@ This is a simple E-commerce website API built with Node.js, Express.js, and Mong
       "email": "john.doe@example.com",
       "userImage": "https://plus.unsplash.com/premium_photo-1670071482460-5c08776521fe?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
      "address": "123 Fitness Street, Cityville, 98765",
-       "phoneNumber": "123-456-7890",
+     "phoneNumber": "123-456-7890",
      "products": [
         {
             "productId": "66efbb6f8351c3d90a88a193",
@@ -338,12 +338,53 @@ This is a simple E-commerce website API built with Node.js, Express.js, and Mong
             "_id": "66efc855b563b78663569e2f"
         }
       ],
-      "total": 999.97,
+     "total": 999.97,
      "_id": "66efc855b563b78663569e2d",
       "createdAt": "2024-09-22T07:33:41.220Z",
      "__v": 0
      }
      ```
+### 8. **Get All Orders**
+
+- **Endpoint:** `GET /api/orders`
+- **Description:** Retrieves all orders from the database.
+- **Response Example:**
+
+  ```json
+  [
+    {
+      "_id": "66efccd6212b839db54eaea7",
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "userImage": "https://plus.unsplash.com/premium_photo-1670071482460-5c08776521fe?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
+      "address": "123 Fitness Street, Cityville, 98765",
+      "phoneNumber": "123-456-7890",
+      "products": [
+        {
+          "productId": "66efbb6f8351c3d90a88a193",
+          "name": "Treade Mill For Home",
+          "image": "https://images.unsplash.com/photo-1649068618811-9f3547ef98fc?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "description": "A compact and foldable treadmill, perfect for home workouts.",
+          "quantity": 1,
+          "price": 599.99,
+          "_id": "66efccd6212b839db54eaea8"
+        },
+        {
+          "productId": "66efbf2b0386dc7577fe3f42",
+          "name": "Adjustable Dumbbell Set",
+          "image": "https://images.unsplash.com/photo-1562771242-a02d9090c90c?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "description": "This adjustable dumbbell set includes multiple weights.",
+          "quantity": 2,
+          "price": 199.99,
+          "_id": "66efccd6212b839db54eaea9"
+        }
+      ],
+      "total": 999.97,
+      "createdAt": "2024-09-22T07:52:54.116Z",
+      "__v": 0
+    }
+  ]
+
 ## Notes
 
 - Ensure MongoDB is running locally or use a cloud MongoDB service.
