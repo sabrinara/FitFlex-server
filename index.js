@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 // Products routes 
 
 // CREATE: Add a new product (POST)
-app.post('/api/products', async (req, res) => {
+app.post('/api/products/create-product', async (req, res) => {
   try {
     const { name, category, price,quantity, description, image } = req.body;
     const product = new Product({ name, category, price, quantity, description, image });
@@ -41,17 +41,17 @@ app.get('/api/products', async (req, res) => {
   try {
     const { search, categories, minPrice, maxPrice, sortBy, sortOrder } = req.query;
 
-    // Build the query object
+  
     let query = {};
 
-    // Search by name
+    
     if (search) {
-      query.name = { $regex: search, $options: 'i' }; // Case-insensitive search
+      query.name = { $regex: search, $options: 'i' }; 
     }
 
     // Filter by categories
     if (categories) {
-      const categoryArray = categories.split(','); // Expects categories as a comma-separated string
+      const categoryArray = categories.split(','); 
       query.category = { $in: categoryArray };
     }
 
@@ -134,21 +134,20 @@ app.get('/api/products/category/:category', async (req, res) => {
   }
 });
 
-
 // Orders routes
 // CREATE: Add an order (POST)
-app.post('/api/orders', async (req, res) => {
+app.post('/api/orders/create-orders', async (req, res) => {
   try {
     const { name, userImage, email, address, phoneNumber, products, total } = req.body;
 
-    
     if (!Array.isArray(products) || products.length === 0) {
       return res.status(400).json({ message: 'Products are required in the order' });
     }
 
+    const orderProducts = [];
 
     for (const item of products) {
-      const product = await Product.findById(item.productId); 
+      const product = await Product.findById(item.productId);
       if (!product) {
         return res.status(404).json({ message: `Product with ID ${item.productId} not found` });
       }
@@ -157,11 +156,22 @@ app.post('/api/orders', async (req, res) => {
         return res.status(400).json({ message: `Not enough quantity for product ${product.name}` });
       }
 
+      
       product.quantity -= item.quantity;
       await product.save();
+
+  
+      orderProducts.push({
+        productId: product._id, 
+        name: product.name,
+        image: product.image,
+        description: product.description,
+        quantity: item.quantity,
+        price: product.price,
+      });
     }
 
-    const order = new Order({ name, email, userImage, address, phoneNumber, products, total });
+    const order = new Order({ name, email, userImage, address, phoneNumber, products: orderProducts, total });
     await order.save();
 
     res.status(201).json(order);
@@ -169,6 +179,7 @@ app.post('/api/orders', async (req, res) => {
     res.status(500).json({ message: 'Server error', error: err.message });
   }
 });
+
 
 
 
@@ -195,7 +206,18 @@ app.get('/api/orders/:id', async (req, res) => {
   }
 });
 
-
+// delete order 
+app.delete('/api/orders/:id', async (req, res) => {
+  try {
+    const order = await Order.findByIdAndDelete(req.params.id);
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+    res.status(200).json({ message: 'Order deleted' });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+});
 
 // Start server
 const PORT = process.env.PORT || 5000;
