@@ -125,14 +125,16 @@ app.delete('/api/products/:id', async (req, res) => {
 });
 
 // READ: Get products by category (GET)
+// READ: Get products by category (GET)
 app.get('/api/products/category/:category', async (req, res) => {
   try {
-    const products = await Product.find({ category: req.params.category });
+    const products = await Product.find({ category: { $in: [req.params.category] } });
     res.status(200).json(products);
   } catch (err) {
     res.status(500).json({ message: 'Server error', error: err.message });
   }
 });
+
 
 // Orders routes
 // CREATE: Add an order (POST)
