@@ -96,10 +96,10 @@ app.get('/api/products/:id', async (req, res) => {
 // UPDATE: Update a product by ID (PUT)
 app.put('/api/products/:id', async (req, res) => {
   try {
-    const { name, category, price, description } = req.body;
+    const { name, category, price, description, image, quantity } = req.body;
     const product = await Product.findByIdAndUpdate(
       req.params.id,
-      { name, category, price, description },
+      { name, category, price, description , image, quantity },
       { new: true, runValidators: true }
     );
     if (!product) {
@@ -139,7 +139,7 @@ app.get('/api/products/category/:category', async (req, res) => {
 // CREATE: Add an order (POST)
 app.post('/api/orders', async (req, res) => {
   try {
-    const { name, email, address, phoneNumber, products, total } = req.body;
+    const { name, userImage, email, address, phoneNumber, products, total } = req.body;
 
     
     if (!Array.isArray(products) || products.length === 0) {
@@ -161,7 +161,7 @@ app.post('/api/orders', async (req, res) => {
       await product.save();
     }
 
-    const order = new Order({ name, email, address, phoneNumber, products, total });
+    const order = new Order({ name, email, userImage, address, phoneNumber, products, total });
     await order.save();
 
     res.status(201).json(order);
