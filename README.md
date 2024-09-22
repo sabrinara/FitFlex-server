@@ -1,6 +1,6 @@
 # FlexFit-A fitness equipment selling website
 
-This is a simple E-commerce website API built with Node.js, Express.js, and MongoDB. The API allows you to perform CRUD operations on products, as well as search, filter, and sort them.
+This is a simple E-commerce website API built with Node.js, Express.js, and MongoDB. The API allows you to perform CRUD operations on products, as well as search, filter, and sort them. User can order their desired products.
 
 ## Features
 
@@ -392,4 +392,4 @@ This is a simple E-commerce website API built with Node.js, Express.js, and Mong
 
 ---
 
-This `README.md` file should provide comprehensive information for users and developers to understand and use your Product Management API effectively.
+This `README.md` file should provide comprehensive information for users and developers to understand and use your Product Management and Order API effectively.
