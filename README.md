@@ -1,6 +1,6 @@
-# Product Management API
+# FlexFit-A fitness equipment selling website
 
-This is a simple Product Management API built with Node.js, Express.js, and MongoDB. The API allows you to perform CRUD operations on products, as well as search, filter, and sort them.
+This is a simple E-commerce website API built with Node.js, Express.js, and MongoDB. The API allows you to perform CRUD operations on products, as well as search, filter, and sort them.
 
 ## Features
 
@@ -8,6 +8,7 @@ This is a simple Product Management API built with Node.js, Express.js, and Mong
 - **Search products by name or category**
 - **Filter products by category and price range.**
 - **Sort products by price in ascending or descending order.**
+- **Products order and payment.**
 
 ## Technologies Used
 
@@ -270,7 +271,79 @@ This is a simple Product Management API built with Node.js, Express.js, and Mong
         }
      ]
      ```
+### 7. **Order Products**
+   - **Endpoint:** `POST /api/orders`
+   - **Description:** Place a Order
+   - **Example Request:**
 
+     ```plaintext
+     POST /api/orders
+     ```
+- **Request Body Example:**
+
+     ```json
+      {
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "userImage": "https://plus.unsplash.com/premium_photo-1670071482460-5c08776521fe?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
+  "address": "123 Fitness Street, Cityville, 98765",
+  "phoneNumber": "123-456-7890",
+   "products": [
+    {
+      "productId": "66efbb6f8351c3d90a88a193",
+      "name": "Treade Mill For Home",
+      "image": "https://images.unsplash.com/photo-1649068618811-9f3547ef98fc?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "description": "A compact and foldable treadmill, perfect for home workouts. Features adjustable speed settings, a built-in heart rate monitor, and an LCD display for tracking your progress.",
+      "quantity": 1,
+      "price": 599.99
+    },
+    {
+      "productId": "66efbf2b0386dc7577fe3f42",
+      "name": "Adjustable Dumbbell Set",
+      "image": "https://images.unsplash.com/photo-1562771242-a02d9090c90c?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "description": "This adjustable dumbbell set includes multiple weights and allows for easy adjustment, perfect for both beginner and advanced users. The ergonomic design ensures comfort and safety during intense workouts.",
+      "quantity": 2,
+      "price": 199.99
+    }
+  ],
+  "total": 999.97
+     }
+     ```
+   - **Response Example:**
+
+     ```json
+     {
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "userImage": "https://plus.unsplash.com/premium_photo-1670071482460-5c08776521fe?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
+     "address": "123 Fitness Street, Cityville, 98765",
+       "phoneNumber": "123-456-7890",
+     "products": [
+        {
+            "productId": "66efbb6f8351c3d90a88a193",
+            "name": "Treade Mill For Home",
+            "image": "https://images.unsplash.com/photo-1649068618811-9f3547ef98fc?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "description": "A compact and foldable treadmill, perfect for home workouts. Features adjustable speed settings, a built-in heart rate monitor, and an LCD display for tracking your progress.",
+            "quantity": 1,
+            "price": 599.99,
+            "_id": "66efc855b563b78663569e2e"
+        },
+        {
+            "productId": "66efbf2b0386dc7577fe3f42",
+            "name": "Adjustable Dumbbell Set",
+            "image": "https://images.unsplash.com/photo-1562771242-a02d9090c90c?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "description": "This adjustable dumbbell set includes multiple weights and allows for easy adjustment, perfect for both beginner and advanced users. The ergonomic design ensures comfort and safety during intense workouts.",
+            "quantity": 2,
+            "price": 199.99,
+            "_id": "66efc855b563b78663569e2f"
+        }
+      ],
+      "total": 999.97,
+     "_id": "66efc855b563b78663569e2d",
+      "createdAt": "2024-09-22T07:33:41.220Z",
+     "__v": 0
+     }
+     ```
 ## Notes
 
 - Ensure MongoDB is running locally or use a cloud MongoDB service.
