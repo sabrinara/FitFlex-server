@@ -27,8 +27,8 @@ app.get('/', (req, res) => {
 // CREATE: Add a new product (POST)
 app.post('/api/products', async (req, res) => {
   try {
-    const { name, category, price, description } = req.body;
-    const product = new Product({ name, category, price, description });
+    const { name, category, price,quantity, description, image } = req.body;
+    const product = new Product({ name, category, price, quantity, description, image });
     await product.save();
     res.status(201).json(product);
   } catch (err) {
@@ -136,18 +136,41 @@ app.get('/api/products/category/:category', async (req, res) => {
 
 
 // Orders routes
-
 // CREATE: Add an order (POST)
 app.post('/api/orders', async (req, res) => {
   try {
-    const { name, email, address, phoneNumeber, products, total } = req.body;
-    const order = new Order({ name, email, address, phoneNumeber, products, total });
+    const { name, email, address, phoneNumber, products, total } = req.body;
+
+    
+    if (!Array.isArray(products) || products.length === 0) {
+      return res.status(400).json({ message: 'Products are required in the order' });
+    }
+
+
+    for (const item of products) {
+      const product = await Product.findById(item.productId); 
+      if (!product) {
+        return res.status(404).json({ message: `Product with ID ${item.productId} not found` });
+      }
+
+      if (product.quantity < item.quantity) {
+        return res.status(400).json({ message: `Not enough quantity for product ${product.name}` });
+      }
+
+      product.quantity -= item.quantity;
+      await product.save();
+    }
+
+    const order = new Order({ name, email, address, phoneNumber, products, total });
     await order.save();
+
     res.status(201).json(order);
   } catch (err) {
     res.status(500).json({ message: 'Server error', error: err.message });
   }
 });
+
+
 
 // READ: Get all orders (GET)
 app.get('/api/orders', async (req, res) => {
