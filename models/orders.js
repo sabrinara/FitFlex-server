@@ -59,6 +59,14 @@ const OrderSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  StripePayment:{
+    type: Boolean,
+    default: false,
+  },
+  CashOnDelivery:{
+    type: Boolean,
+    default: true,
+  }
 });
 
 const Order = mongoose.model('Order', OrderSchema);
